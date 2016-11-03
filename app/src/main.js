@@ -1,13 +1,13 @@
 import Vue from 'vue'
 
-import App from './App.vue'
+import Mian from './Main.vue'
 
 import ElementUI from 'element-ui'
 import { Button, Select } from 'element-ui'
 
 Vue.use(ElementUI)
 
-new Vue({
+var home=new Vue({
   el: '#app',
-  render: h => h(App)
+  render: h => h(Mian)
 })

@@ -12,6 +12,7 @@
   "license": "WTFPL",
   "dependencies": {
     "element-ui": "^1.0.0-rc.8",
+    "menubar": "^5.1.0",
     "vue": "^2.0.1"
   },
   "devDependencies": {

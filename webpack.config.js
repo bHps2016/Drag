@@ -5,13 +5,15 @@ module.exports = {
     watch: true,
 
     target: 'electron',
-
-    entry: './app/src/entry.js',
-
+    entry: {
+        menue: './app/src/menue.js',
+        main: './app/src/main.js',
+    },
+    
     output: {
         path: __dirname + '/app/build',
         publicPath: 'build/',
-        filename: 'bundle.js'
+        filename: '[name].bundle.js'
     },
 
     module: {
@@ -39,7 +41,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|gif)$/,
-                loader: 'file?limit=8192',
+                loader: 'file-loader',
                 query: {
                     name: '[name].[ext]?[hash]'
                 }
