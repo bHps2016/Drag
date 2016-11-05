@@ -1,8 +1,8 @@
 <template>
     <div id='app'>
-        <LeftBar></LeftBar>
-        <!-- <SetUp></SetUp> -->
-        <Manage></Manage>
+        <LeftBar :ship="ship"></LeftBar>
+        <SetUp v-if="ship"></SetUp>
+        <Manage v-if="!ship"></Manage>
     </div>
 </template>
 
@@ -18,7 +18,7 @@
     export default {
         data () {
           return {
-            
+                ship: true
           };
         },
         components: {
@@ -63,5 +63,8 @@ body {
 }
 .el-form-item__content {
     line-height: 32px;
+}
+.el-tooltip__popper.is-light {
+    padding: 2px;
 }
 </style>

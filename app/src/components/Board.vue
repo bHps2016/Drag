@@ -2,7 +2,21 @@
     <div class='board'>
         <img :class="[ship ? 'select':'']" class="logo" src="../assets/qiniu_logo.png">
         <img :class="[ship ? '':'select']" class="logo" src="../assets/webpack.png">
-        <div id="drag_area" class="drag_area">将图片拖拽到此处上传</div>
+        <el-upload
+        	id="drag_area"
+        	class="drag_area"
+			action="http://localhost:3000/upload/"
+			type="drag"
+			:multiple="true"
+			:on-preview="handlePreview"
+			:on-remove="handleRemove"
+			:on-success="handleSuccess"
+			:on-error="handleError"
+		>
+		  	<i class="el-icon-upload"></i>
+		  	<div class="el-dragger__text">将文件拖到此处，或<em>点击上传</em></div>
+		  	<div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+		</el-upload>
         <div v-if='src'>
 	        <img class="preview" :src="src">
 	        <div class="link_area">
@@ -13,7 +27,7 @@
 	    		</div>
 	        	<div @click="copy(1,$event)" class="link">
 	        		<a href="https://vuefe.cn/guide/class-and-style.html">
-	        			<span class="link_cont">{{ res_url }}</span>
+	        			<span class="link_cont">{{ src }}</span>
 	        		</a>
 	        		<el-tooltip  effect="light" placement="top">
 					  	<div slot="content">Copy</div>
@@ -32,7 +46,7 @@
 					</el-tooltip>
 	        	</div>
 	        	<div @click="copy(3,$event)" class="link">
-	        		<span class="link_cont">![]({{ res_url }})</span>
+	        		<span class="link_cont">![]({{ src }})</span>
 	        		<el-tooltip  effect="light" placement="top">
 					  	<div slot="content">Copy</div>
 					  	<el-button>
@@ -54,13 +68,12 @@ export default {
           	selected: ' ',
           	src: '',
           	size: '',
-          	name: '',
-          	res_url: ''
+          	name: ''
         }
     },
     props: ['ship'],
     methods: {
-    	 copy(i,e){
+    	copy(i,e){
     	 	var target = e.target;
     	 	if (target.className!='el-icon-document') {
     	 		return;
@@ -85,9 +98,26 @@ export default {
 
 			// 删除创建元素
 			document.body.removeChild(aux);
-    	 }
+    	},
+    	handleRemove(file, fileList) {
+	        //console.log(file, fileList);
+	    },
+	    handlePreview(file) {
+	        //console.log(file);
+	    },
+	    handleSuccess(file, fileList) {
+	    	this.name = file.name;
+	    	this.src = "http://oev2d4dz7.bkt.clouddn.com/"+file.name;
+	    	this.size = Math.floor(file.size/1024);
+	    	this.code = '<img src="'+this.src+'">';
+	        console.log(file);
+
+	    },
+	    handleError(file) {
+	        //console.log(file);
+	    }
     },
-    mounted: function () {
+    mounte: function () {
     	var self = this;
     	var preDefault = (e) => {
         	e.preventDefault(); 
@@ -116,7 +146,8 @@ export default {
 	            self.size = filesize;
 	            self.name = filename;
 	            self.src = "http://pics.sc.chinaz.com/files/pic/pic9/201508/apic14052.jpg";
-	            var url = "http://pics.sc.chinaz.com/files/pic/pic9/201508/apic14052.jpg";
+	            // console.log(self.src);
+	            var url = "http://localhost:3000/upload";
 	            console.log("发送一个Ajax!");
 	            var xhr = new XMLHttpRequest(); 
 		        xhr.open("post", url , true); 
@@ -124,11 +155,10 @@ export default {
 		        xhr.onload = function (res,err) {
 		        	self.res_url = res.currentTarget.responseURL;
 		        	self.code = '<img src="'+self.res_url+'">';
-		        	console.log(self.res_url);
+		        	console.log(res)
 		        } 
 		        var fd = new FormData(); 
 		        fd.append('mypic', fileList[0]); 
-		             
 		        xhr.send(fd); 
         	}
         }, false)
@@ -149,15 +179,6 @@ export default {
 .logo {
 	height: 4.2%;
 	margin: 1.5% 0;
-}
-.drag_area {
-	width: 80%;
-	height: 100px;
-	margin: 0 auto;
-	color: silver;
-	border: 1px dashed currentColor; 
-	border-radius: 5px;
-	line-height: 100px;
 }
 .preview {
 	width: 80%; 

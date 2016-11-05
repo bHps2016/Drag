@@ -12,8 +12,17 @@
   "license": "WTFPL",
   "dependencies": {
     "element-ui": "^1.0.0-rc.8",
+    "express": "^4.14.0",
+    "formidable": "^1.0.17",
+    "imgur-node-api": "^0.1.0",
     "menubar": "^5.1.0",
-    "vue": "^2.0.1"
+    "node-imgur": "^0.1.2",
+    "node-uuid": "^1.4.7",
+    "querystring": "^0.2.0",
+    "superagent": "^2.3.0",
+    "vue": "^2.0.1",
+    "vue-resource": "^1.0.3",
+    "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

@@ -9,13 +9,13 @@
 					<template slot="append">.com</template>
 				</el-input>
 			</el-form-item>
-			<el-form-item label="七牛资源域名">
+			<el-form-item label="AccessKey">
 				<el-input v-model="form.name"></el-input>
 			</el-form-item>
-			<el-form-item label="七牛资源域名">
+			<el-form-item label="SecretKey">
 				<el-input v-model="form.name"></el-input>
 			</el-form-item>
-			<el-form-item label="七牛资源域名">
+			<el-form-item label="BucketName">
 				<el-input v-model="form.name"></el-input>
 			</el-form-item>
 			<el-form-item>
@@ -31,12 +31,21 @@ export default {
     data() {
 		return {
 			form: {
-				name: ''
+				src_url: 'oev2d4dz7.bkt.clouddn.com',
+				accesskey: 'T2f8MFcG0Wu4HVKpOCu8pAxbqMXO0f6pHnnlmI9y',
+				sceretkey: '7AARzZSEZi_f0ctzGIRARfLobRzPcK_OFLvIGTlH',
+				bucketname: 'blog'
 			}
 		}
     },
     methods: {
 		onSubmit() {
+			this.$http.post('http://localhost:3000/setupchina/',this.form).then((response) => {
+			    console.log(response.body)
+			    console.log('holle')
+			}, (response) => {
+			    // error callback 
+			});
 			console.log('submit!');
 		},
 		modify(){

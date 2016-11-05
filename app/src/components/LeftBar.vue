@@ -15,6 +15,7 @@
 }
 .item {
   font-size: 14px;
+  width: 100%;
   height: 32px;
   line-height: 32px;
   border-bottom: 1px solid rgb(55,59,65);

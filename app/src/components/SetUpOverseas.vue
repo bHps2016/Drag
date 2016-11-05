@@ -18,12 +18,18 @@ export default {
     data() {
 		return {
 			form: {
-				name: ''
+				name: 'hsx'
 			}
 		}
     },
     methods: {
 		onSubmit() {
+			this.$http.post('http://localhost:3000/setupoverseas/',this.form).then((response) => {
+			    console.log(response.body)
+			    console.log('holle')
+			}, (response) => {
+			    // error callback 
+			});
 			console.log('submit!');
 		},
 		modify(){

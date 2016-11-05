@@ -53,4 +53,15 @@
     .el-tooltip__popper.is-light {
         padding: 2px;
     }
+    .el-upload .el-dragger, .el-upload {
+        width: 80%;
+        margin: 0 auto;
+    }
+    .el-upload .el-dragger {
+        height: 20%;
+        padding-bottom: 16px;
+    }
+    .el-dragger .el-icon-upload {
+        margin: 16px auto;
+    }
 </style>

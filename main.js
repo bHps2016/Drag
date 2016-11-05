@@ -9,9 +9,8 @@ require('electron-reload')(__dirname)
 
 var menu = menubar({
     dir: __dirname,
-    // index: 'menubar.html'
     index: `file://${__dirname}/app/menue.html`, // fix
-    width: 264, 
+    width: 530, 
     height: 320
 })
 
@@ -27,3 +26,5 @@ app.on('ready', () => {
     mainWindow.webContents.openDevTools()
 
 })
+let server = require('./app/src/server.js').server;
+server();
