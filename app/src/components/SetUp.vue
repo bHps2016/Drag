@@ -22,12 +22,15 @@ export default {
 </script>
 
 <style scoped>
+.set_up {
+    overflow: hidden;
+}
 .china {
-	height: 70%;
+	height: 53%;
 	border-bottom: 1px solid silver;
 }
 .overseas {
-	height: 30%;
+	height: 47%;
 }
 .item {
 	padding: 0 10%;

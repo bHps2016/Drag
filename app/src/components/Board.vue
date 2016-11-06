@@ -1,23 +1,41 @@
 <template>
     <div class='board'>
         <img :class="[ship ? 'select':'']" class="logo" src="../assets/qiniu_logo.png">
-        <img :class="[ship ? '':'select']" class="logo" src="../assets/webpack.png">
-        <el-upload
-        	id="drag_area"
-        	class="drag_area"
-			action="http://localhost:3000/upload/"
-			type="drag"
-			:multiple="true"
-			:on-preview="handlePreview"
-			:on-remove="handleRemove"
-			:on-success="handleSuccess"
-			:on-error="handleError"
-		>
-		  	<i class="el-icon-upload"></i>
-		  	<div class="el-dragger__text">将文件拖到此处，或<em>点击上传</em></div>
-		  	<div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-		</el-upload>
-        <div v-if='src'>
+        <img :class="[ship ? '':'select']" class="logo" src="../assets/cloudinary.png">
+        <div v-if='ship' class="china">
+	        <el-upload
+	        	class="drag_area"
+				action="http://localhost:3000/uploadchina/"
+				type="drag"
+				:multiple="false"
+				:on-preview="handlePreview"
+				:on-remove="handleRemove"
+				:on-success="handleSuccess"
+				:on-error="handleError"
+			>
+			  	<i class="el-icon-upload"></i>
+			  	<div class="el-dragger__text">将文件拖到此处，或<em>点击上传</em></div>
+			  	<div class="el-upload__tip" slot="tip">只能上传jpg/png文件</div>
+			</el-upload>
+		</div>
+		<div v-if='!ship' class="overseas">
+	        <el-upload
+	        	id="drag_area"
+	        	class="drag_area"
+				action="http://localhost:3000/uploadoverseas/"
+				type="drag"
+				:multiple="false"
+				:on-preview="handlePreview"
+				:on-remove="handleRemove"
+				:on-success="handleSuccess"
+				:on-error="handleError"
+			>
+			  	<i class="el-icon-upload"></i>
+			  	<div class="el-dragger__text">将文件拖到此处，或<em>点击上传</em></em></div>
+			  	<div class="el-upload__tip" slot="tip">只能上传jpg/png文件</div>
+			</el-upload>
+		</div>
+        <div v-if='src&&ship'>
 	        <img class="preview" :src="src">
 	        <div class="link_area">
 	        	<div class="area_head">图片信息</div>
@@ -26,7 +44,7 @@
 	    			<div class="name">Name:{{ name }}</div>
 	    		</div>
 	        	<div @click="copy(1,$event)" class="link">
-	        		<a href="https://vuefe.cn/guide/class-and-style.html">
+	        		<a :href="src">
 	        			<span class="link_cont">{{ src }}</span>
 	        		</a>
 	        		<el-tooltip  effect="light" placement="top">
@@ -56,6 +74,45 @@
 	        	</div>
 	        </div>
         </div>
+        <div v-if='ov_src&&!ship'>
+	        <img class="preview" :src="ov_src">
+	        <div class="link_area">
+	        	<div class="area_head">图片信息</div>
+	        	<div class="info">
+	    			<div class="name">Size:{{ ov_size }}KB</div>
+	    			<div class="name">Name:{{ ov_name }}</div>
+	    		</div>
+	        	<div @click="copy(1,$event)" class="link">
+	        		<a :href="ov_src">
+	        			<span class="link_cont">{{ ov_src }}</span>
+	        		</a>
+	        		<el-tooltip  effect="light" placement="top">
+					  	<div slot="content">Copy</div>
+					  	<el-button>
+					  		<i class="el-icon-document"></i>
+					  	</el-button>
+					</el-tooltip>
+	        	</div>
+	        	<div @click="copy(2,$event)" class="link">
+	        		<span class="link_cont">{{ ov_code }}</span>
+	        		<el-tooltip  effect="light" placement="top">
+					  	<div slot="content">Copy</div>
+					  	<el-button>
+					  		<i class="el-icon-document"></i>
+					  	</el-button>
+					</el-tooltip>
+	        	</div>
+	        	<div @click="copy(3,$event)" class="link">
+	        		<span class="link_cont">![]({{ ov_src }})</span>
+	        		<el-tooltip  effect="light" placement="top">
+					  	<div slot="content">Copy</div>
+					  	<el-button>
+					  		<i class="el-icon-document"></i>
+					  	</el-button>
+					</el-tooltip>
+	        	</div>
+	        </div>
+        </div>
     </div>
 </template>
 
@@ -65,10 +122,14 @@ export default {
         return {
             msg: 'Hello Vue!',
           	code: '',
+          	ov_code: '',
           	selected: ' ',
           	src: '',
+          	ov_src: '',
           	size: '',
-          	name: ''
+          	ov_size: '',
+          	name: '',
+          	ov_name: ''
         }
     },
     props: ['ship'],
@@ -103,21 +164,27 @@ export default {
 	        //console.log(file, fileList);
 	    },
 	    handlePreview(file) {
-	        //console.log(file);
+	        console.log(file);
 	    },
 	    handleSuccess(file, fileList) {
-	    	this.name = file.name;
-	    	this.src = "http://oev2d4dz7.bkt.clouddn.com/"+file.name;
-	    	this.size = Math.floor(file.size/1024);
-	    	this.code = '<img src="'+this.src+'">';
-	        console.log(file);
-
+	    	if (this.ship) {
+	    		var sr=file.response;
+		    	this.name = file.name;
+		    	this.src = 'http://'+sr+'/'+file.name;
+		    	this.size = Math.floor(file.size/1024);
+		    	this.code = '<img src="'+this.src+'">';
+	    	} else {
+	    		this.ov_name = file.name;
+		    	this.ov_src = file.response.url;
+		    	this.ov_size = Math.floor(file.response.bytes/1024);
+		    	this.ov_code = '<img src="'+this.ov_src+'">';
+	    	}
 	    },
 	    handleError(file) {
 	        //console.log(file);
 	    }
     },
-    mounte: function () {
+    mounted: function () {
     	var self = this;
     	var preDefault = (e) => {
         	e.preventDefault(); 
@@ -127,42 +194,6 @@ export default {
         doc.addEventListener('drop', preDefault,false);
         doc.addEventListener('dragover', preDefault,false);
         doc.addEventListener('dragleave', preDefault,false);
-        var drag_area = document.getElementById("drag_area");
-        console.log(drag_area)
-        drag_area.addEventListener("drop", function(e){
-        	e.preventDefault();
-        	e.preventDefault(); //取消默认浏览器拖拽效果 
-	        var fileList = e.dataTransfer.files; //获取文件对象 
-	        //检测是否是拖拽文件到页面的操作 
-	        if(fileList.length == 0){ 
-	            return false; 
-	        } 
-	        //检测文件是不是图片 
-	        if(fileList[0].type.indexOf('image')!==-1){ 
-	            //拖拉图片到浏览器，可以实现预览功能 
-	            var img = window.URL.createObjectURL(fileList[0]); 
-	            var filename = fileList[0].name; //图片名称 
-	            var filesize = Math.floor((fileList[0].size)/1024); 
-	            self.size = filesize;
-	            self.name = filename;
-	            self.src = "http://pics.sc.chinaz.com/files/pic/pic9/201508/apic14052.jpg";
-	            // console.log(self.src);
-	            var url = "http://localhost:3000/upload";
-	            console.log("发送一个Ajax!");
-	            var xhr = new XMLHttpRequest(); 
-		        xhr.open("post", url , true); 
-		        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-		        xhr.onload = function (res,err) {
-		        	self.res_url = res.currentTarget.responseURL;
-		        	self.code = '<img src="'+self.res_url+'">';
-		        	console.log(res)
-		        } 
-		        var fd = new FormData(); 
-		        fd.append('mypic', fileList[0]); 
-		        xhr.send(fd); 
-        	}
-        }, false)
-
 	}
 }
 </script>

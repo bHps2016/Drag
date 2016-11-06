@@ -1,20 +1,20 @@
 <template>
 	<div class="manage">
 		<div class="search">
-			<el-input placeholder="请输入内容" style="width: 300px;">
-				<el-button slot="append" icon="search"></el-button>
+			<el-input v-model='key' placeholder="请输入完整文件名(暂支持国内搜索)" style="width: 300px;">
+				<el-button slot="append" @click='search' icon="search"></el-button>
 			</el-input>
 		</div>
-		<div class="preview">
+		<div v-if="flag" class="preview">
 			<div v-for="(item, index) in img" class="item_cont">
 				<img :src="item.url">
 				<div class="img_msg">
 					<div class="img_info">
 		    			<div class="name">Size:{{ item.size }}KB</div>
-		    			<div class="name">Name:{{ item.name }}</div>
+		    			<!-- <div class="name">Name:{{ item.name }}</div> -->
 		    		</div>
 		        	<div @click="copy(1,$event)" class="link">
-		        		<a href="https://vuefe.cn/guide/class-and-style.html">
+		        		<a :href="item.url">
 		        			<span class="link_cont">{{ item.url }}</span>
 		        		</a>
 		        		<el-tooltip  effect="light" placement="top">
@@ -48,29 +48,15 @@
 	</div>
 </template>
 <script>
-var img = [
-	{
-		name: 'hsx',
-		url: 'http://www.benbenla.cn/images/20130104/benbenla-04d.jpg',
-		size: '1024'
-	},
-	{
-		name: 'sj',
-		url: 'http://img4.imgtn.bdimg.com/it/u=2289083762,978781862&fm=21&gp=0.jpg',
-		size: '2024'
-	},
-	{
-		name: 'lk',
-		url: 'http://dl.bizhi.sogou.com/images/2013/07/17/346898.jpg',
-		size: '3024'
-	}
-]
+var img = []
 export default {
     data () {
         return {
             img: img,
             url: '',
-            name: ''
+            name: '',
+            key: '',
+            flag: false
         };
     },
     methods: {
@@ -99,7 +85,17 @@ export default {
 
 			// 删除创建元素
 			document.body.removeChild(aux);
-    	 }
+    	},
+    	search(){
+    		this.$http.post('http://localhost:3000/search_china/',this.key).then((response) => {
+			    console.log(response.body)
+			    this.img.push(response.body);
+			    this.flag = true;
+			}, (response) => {
+			    // error callback 
+			});
+			console.log('submit!');
+    	}
     },
 }
 </script>
@@ -108,9 +104,6 @@ export default {
 	display: inline-block;
 	padding-top: 20px;
 	padding-bottom: 20px;
-}
-.preview {
-	font-size: 0;
 }
 .item_cont {
 	width: 100%;
@@ -131,8 +124,9 @@ img {
 }
 .preview {
 	margin: 0 auto 20px;
-	border: 1px solid silver;
+	border-top: 1px solid silver;
 	overflow: hidden;
+	font-size: 0;
 	text-align: left;
 	font-family: Monaco,'Courier New', monospace;
 }

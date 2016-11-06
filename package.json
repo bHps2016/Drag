@@ -16,6 +16,7 @@
     "formidable": "^1.0.17",
     "imgur-node-api": "^0.1.0",
     "menubar": "^5.1.0",
+    "nconf": "^0.8.4",
     "node-imgur": "^0.1.2",
     "node-uuid": "^1.4.7",
     "querystring": "^0.2.0",

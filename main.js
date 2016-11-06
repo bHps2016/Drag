@@ -26,5 +26,6 @@ app.on('ready', () => {
     mainWindow.webContents.openDevTools()
 
 })
-let server = require('./app/src/server.js').server;
+
+let server = require('./server.js').server;
 server();
