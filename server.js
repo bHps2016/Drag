@@ -1,8 +1,6 @@
 var express = require('express');
 var formidable = require('formidable');
 var fs = require('fs');
-var query = require("querystring");
-var fs = require('fs');
 var qiniu = require('node-qiniu');
 var nconf = require('nconf');
 var cloudinary = require('cloudinary');
@@ -146,4 +144,4 @@ let server = () =>{
     app.listen(3333);  
     console.log('服务器端口：3333')
 }
-exports.server=server;
+server();
