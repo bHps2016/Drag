@@ -87,7 +87,7 @@ export default {
 			document.body.removeChild(aux);
     	},
     	search(){
-    		this.$http.post('http://localhost:3000/search_china/',this.key).then((response) => {
+    		this.$http.post('http://localhost:3333/search_china/',this.key).then((response) => {
 			    console.log(response.body)
 			    this.img.push(response.body);
 			    this.flag = true;

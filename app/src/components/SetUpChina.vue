@@ -45,7 +45,7 @@ export default {
     },
     methods: {
 		onSubmit() {
-			this.$http.post('http://localhost:3000/setupchina/',this.form).then((response) => {
+			this.$http.post('http://localhost:3333/setupchina/',this.form).then((response) => {
 				this.is_disable=true;
 			    localStorage.src_url=this.form.src_url;
 			    localStorage.accesskey=this.form.accesskey;

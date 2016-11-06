@@ -5,7 +5,7 @@
         <div v-if='ship' class="china">
 	        <el-upload
 	        	class="drag_area"
-				action="http://localhost:3000/uploadchina/"
+				action="http://localhost:3333/uploadchina/"
 				type="drag"
 				:multiple="false"
 				:on-preview="handlePreview"
@@ -22,7 +22,7 @@
 	        <el-upload
 	        	id="drag_area"
 	        	class="drag_area"
-				action="http://localhost:3000/uploadoverseas/"
+				action="http://localhost:3333/uploadoverseas/"
 				type="drag"
 				:multiple="false"
 				:on-preview="handlePreview"

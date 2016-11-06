@@ -117,7 +117,7 @@ let server = () =>{
             setTimeout(function(){
                 res.send(obj);
                 res.end();
-            }, 3000)
+            }, 600)
         })
     })
     app.post('/setupchina', function(req, res){
@@ -143,7 +143,7 @@ let server = () =>{
             res.end();
         })
     })
-    app.listen(3000);  
-    console.log('服务器端口：3000')
+    app.listen(3333);  
+    console.log('服务器端口：3333')
 }
 exports.server=server;

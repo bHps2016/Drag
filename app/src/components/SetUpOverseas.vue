@@ -33,7 +33,7 @@ export default {
     },
     methods: {
 		onSubmit() {
-			this.$http.post('http://localhost:3000/setupoverseas/',this.form).then((response) => {
+			this.$http.post('http://localhost:3333/setupoverseas/',this.form).then((response) => {
 				this.is_disable = true;
 			    localStorage.cloud_name=this.form.cloud_name;
 			    localStorage.api_key=this.form.api_key;
