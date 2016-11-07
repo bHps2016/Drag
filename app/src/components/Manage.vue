@@ -5,7 +5,7 @@
 				<el-button slot="append" @click='search' icon="search"></el-button>
 			</el-input>
 		</div>
-		<div v-if="flag" class="preview">
+		<div v-show="flag" class="preview">
 			<div v-for="(item, index) in img" class="item_cont">
 				<img :src="item.url">
 				<div class="img_msg">

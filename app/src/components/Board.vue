@@ -2,7 +2,7 @@
     <div class='board'>
         <img :class="[ship ? 'select':'']" class="logo" src="../assets/qiniu_logo.png">
         <img :class="[ship ? '':'select']" class="logo" src="../assets/cloudinary.png">
-        <div v-if='ship' class="china">
+        <div v-show='ship' class="china">
 	        <el-upload
 	        	class="drag_area"
 				action="http://localhost:3333/uploadchina/"
@@ -18,7 +18,7 @@
 			  	<div class="el-upload__tip" slot="tip">只能上传jpg/png文件</div>
 			</el-upload>
 		</div>
-		<div v-if='!ship' class="overseas">
+		<div v-show='!ship' class="overseas">
 	        <el-upload
 	        	id="drag_area"
 	        	class="drag_area"
@@ -35,7 +35,7 @@
 			  	<div class="el-upload__tip" slot="tip">只能上传jpg/png文件</div>
 			</el-upload>
 		</div>
-        <div v-if='src&&ship'>
+        <div v-show='src&&ship'>
 	        <img class="preview" :src="src">
 	        <div class="link_area">
 	        	<div class="area_head">图片信息</div>
@@ -74,7 +74,7 @@
 	        	</div>
 	        </div>
         </div>
-        <div v-if='ov_src&&!ship'>
+        <div v-show='ov_src&&!ship'>
 	        <img class="preview" :src="ov_src">
 	        <div class="link_area">
 	        	<div class="area_head">图片信息</div>
