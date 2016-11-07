@@ -23,7 +23,7 @@ app.on('ready', () => {
 
     let mainWindow = new BrowserWindow({width: 660, height: 660})
 
-    mainWindow.loadURL(`file://${__dirname}/app/menue.html`)
+    mainWindow.loadURL(`file://${__dirname}/app/main.html`)
 
     //mainWindow.webContents.openDevTools()
 
