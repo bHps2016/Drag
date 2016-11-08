@@ -17,11 +17,11 @@ var menu = menubar({
 })
 
 // To avoid being garbage collected
-let mainWindow
+var mainWindow
 
 app.on('ready', () => {
 
-    let mainWindow = new BrowserWindow({width: 660, height: 660})
+    var mainWindow = new BrowserWindow({width: 660, height: 660})
 
     mainWindow.loadURL(`file://${__dirname}/app/main.html`)
 

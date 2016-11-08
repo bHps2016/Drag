@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack",
     "start": "electron .",
-    "package": "electron-packager ./ SoundMachine --all --out ~/Desktop/SoundMachine"
+    "package": "electron-packager ./ Drag --all --out ~/Desktop/Drag --overwrite --icon=./app/img/drag.icns"
   },
   "author": "shengxihu",
   "repository": " ",

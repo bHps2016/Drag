@@ -34,7 +34,7 @@ cloudinary.config({
 var imagesBucket = new qiniu.Bucket(bn);
 
 
-let server = () =>{
+var server = () =>{
     var app = express();
     app.post('/uploadchina', function(req, res){
         var form = new formidable.IncomingForm();
