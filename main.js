@@ -17,30 +17,25 @@ var menu = menubar({
 })
 
 // To avoid being garbage collected
-let mainWindow
+var mainWindow
 
 app.on('ready', () => {
-
-    let mainWindow = new BrowserWindow({width: 660, height: 660})
-
+    var workerProcess = child_process.exec('node ./server.js ',
+    	function (error, stdout, stderr) {
+    		if (error) {
+    			console.log(error.stack);
+    			console.log('Error code: '+error.code);
+    			console.log('Signal received: '+error.signal);
+    		}
+    		console.log('stdout: ' + stdout);
+    		console.log('stderr: ' + stderr);
+    	}
+    )
+    var mainWindow = new BrowserWindow({width: 660, height: 660})
     mainWindow.loadURL(`file://${__dirname}/app/main.html`)
-
-    //mainWindow.webContents.openDevTools()
-
 })
 
-var workerProcess = child_process.exec('node ./server.js ',
-	function (error, stdout, stderr) {
-		if (error) {
-			console.log(error.stack);
-			console.log('Error code: '+error.code);
-			console.log('Signal received: '+error.signal);
-		}
-		console.log('stdout: ' + stdout);
-		console.log('stderr: ' + stderr);
-	}
-)
-
-workerProcess.on('exit', function (code) {
-	console.log('子进程已退出，退出码 '+code);
-})
+app.on('window-all-closed', function () {
+    workerProcess.kill('SIGINT');
+    app.quit();
+});
