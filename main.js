@@ -22,12 +22,12 @@ var workerProcess
 
 app.on('ready', () => {
     workerProcess = child_process.exec('node ./server.js ',
-    	function (error, stdout, stderr) {
-    		if (error) {
-    			console.log('Signal received: '+error.signal);
-    		}
-    		console.log('stdout: ' + stdout);
-    	}
+        function (error, stdout, stderr) {
+            if (error) {
+                console.log('Signal received: '+error.signal);
+            }
+            console.log('stdout: ' + stdout);
+        }
     )
     var mainWindow = new BrowserWindow({width: 660, height: 660})
     mainWindow.loadURL(`file://${__dirname}/app/main.html`)
