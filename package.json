@@ -12,12 +12,14 @@
   "repository": " ",
   "license": "WTFPL",
   "dependencies": {
+    "cloudinary": "^1.4.4",
     "electron-packager": "^8.2.0",
     "element-ui": "^1.0.0-rc.8",
     "express": "^4.14.0",
     "formidable": "^1.0.17",
     "menubar": "^5.1.0",
     "nconf": "^0.8.4",
+    "node-qiniu": "^6.2.0",
     "vue-resource": "^1.0.3"
   },
   "devDependencies": {

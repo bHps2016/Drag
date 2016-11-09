@@ -88,9 +88,10 @@ export default {
     	},
     	search(){
     		this.$http.post('http://localhost:3333/search_china/',this.key).then((response) => {
-			    console.log(response.body)
 			    this.img.push(response.body);
-			    this.flag = true;
+			    if (response.body.size) {
+			    	this.flag = true;
+			    }
 			}, (response) => {
 			    // error callback 
 			});
