@@ -30,7 +30,8 @@ app.on('ready', () => {
         }
     )
     var mainWindow = new BrowserWindow({width: 660, height: 660})
-    mainWindow.loadURL(`file://${__dirname}/app/main.html`)
+    mainWindow.loadURL(`file://${__dirname}/app/menue.html`)
+    mainWindow.webContents.openDevTools()
 })
 
 app.on('window-all-closed', function () {
