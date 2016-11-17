@@ -142,7 +142,7 @@ export default {
     	 	var link = document.getElementsByClassName("link_cont")[i-1];
 	        var aux = document.createElement("input");
 			// 获取复制内容
-			var content = encodeURI(link.innerText || link.textContent);
+			var content = link.innerText || link.textContent;
 			// 设置元素内容
 			aux.setAttribute("value", content);
 			// 将元素插入页面进行调用
@@ -164,12 +164,12 @@ export default {
 	    	if (this.ship) {
 	    		var sr=fileList.response;
 		    	this.name = fileList.name;
-		    	this.src = 'http://'+sr+'/'+fileList.name;
+		    	this.src = 'http://'+sr+'/'+encodeURI(fileList.name);
 		    	this.size = Math.floor(fileList.size/1024);
 		    	this.code = '<img src="'+this.src+'">';
 	    	} else {
 	    		this.ov_name = fileList.name;
-		    	this.ov_src = fileList.response.url;
+		    	this.ov_src = encodeURI(fileList.response.url);
 		    	this.ov_size = Math.floor(fileList.response.bytes/1024);
 		    	this.ov_code = '<img src="'+this.ov_src+'">';
 	    	}
